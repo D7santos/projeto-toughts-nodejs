@@ -169,6 +169,13 @@ form input[type='submit']:hover,
     justify-content: space-between;
 }
 
+
+.dashboard li .date {
+    font-size: 0.8em; 
+    color: #999;     
+    margin-left: 1em; 
+}
+
 .dashboard .label {
     font-weight: bold;
     color: #f6982d;

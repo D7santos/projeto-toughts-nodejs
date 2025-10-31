@@ -1,7 +1,7 @@
 /**
  * @file helpers/handlebars.js
  * @description Define e exporta todos os helpers customizados para o Express-Handlebars.
- * Estes helpers adicionam lógica complexa (matemática, comparações, paginação)
+ * Estes helpers adicionam lógica complexa (matemática, formatação de data, paginação)
  * que não está disponível no Handlebars por padrão.
  */
 
@@ -60,9 +60,33 @@ module.exports = {
     subtract: function (a, b) { return a - b; },
 
     /**
+     * Formata uma data do Sequelize (Date object ou string) para o formato DD/MM/AAAA.
+     * @param {Date | string} date - O objeto de data (ex: createdAt).
+     * @returns {string} A data formatada (ex: "31/10/2025").
+     */
+    formatDate: function(date) {
+        if (!date) return ''; // Garante que não quebra se a data for nula
+        
+        const d = new Date(date);
+        
+        // getDate() retorna o dia (1-31)
+        let day = d.getDate();
+        
+        // getMonth() retorna o mês (0-11), por isso somamos 1
+        let month = d.getMonth() + 1; 
+        
+        // getFullYear() retorna AAAA
+        const year = d.getFullYear();
+
+        // Adiciona um zero à esquerda se for menor que 10
+        if (day < 10) day = '0' + day;
+        if (month < 10) month = '0' + month;
+
+        return `${day}/${month}/${year}`;
+    },
+
+    /**
      * Helper de bloco para renderizar a paginação completa.
-     * Recebe os parâmetros (totalPages, currentPage, etc.) via `options.hash`
-     * e executa o bloco de template (options.fn) com um novo contexto.
      * @param {object} options - O objeto de opções do Handlebars.
      * @param {object} options.hash - Os parâmetros passados (totalPages, currentPage, search, currentOrder).
      * @returns {string} O HTML renderizado pelo bloco (options.fn), populado com o PaginationContext.
@@ -71,7 +95,7 @@ module.exports = {
         // 1. Obter os dados passados do template
         const { search, currentOrder } = options.hash;
 
-        // FIX: Converter 'string' para 'number'
+        // ⚠️ FIX: Converter 'string' para 'number'
         // Handlebars passa todos os atributos como string.
         // Sem parseInt, (currentPage + 1) torna-se "1" + 1 = "11".
         const currentPage = parseInt(options.hash.currentPage, 10) || 1;
@@ -99,7 +123,7 @@ module.exports = {
             // Condição para mostrar a página:
             // 1. É a primeira página (i === 1)
             // 2. É a última página (i === totalPages)
-            // 3. Está "dentro da janela" da página atual (ex: Pág 5, janela 2 -> mostra 3, 4, 5, 6, 7)
+            // 3. Está "dentro da janela" da página atual
             if (i === 1 || i === totalPages || (i >= currentPage - window && i <= currentPage + window)) {
                 pages.push({
                     page: i,
@@ -114,7 +138,7 @@ module.exports = {
             }
         }
         
-        // 6. Passar a lista de páginas [1, '...', 5, 6, 7, '...', 10] para o template
+        // 6. Passar a lista de páginas para o template
         context.pages = pages;
 
         // 7. Renderizar o bloco de HTML (options.fn) usando o novo contexto

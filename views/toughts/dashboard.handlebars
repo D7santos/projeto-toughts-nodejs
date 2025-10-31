@@ -1,27 +1,55 @@
 <div class="dashboard">
     <div class="title-container">
-        <h2>Dashboard</h2>
-        <a href="/toughts/add" class="btn">Criar Penasmentos</a>
+        <h2>Meus Pensamentos</h2>
+        <a href="/toughts/add" class="btn">Adicionar Pensamento</a>
     </div>
 
-    <h3>Seus Penasmentos</h3>
+    {{#if emptyToughts}}
+    <h3>Você ainda não adicionou nenhum pensamento!</h3>
+    {{else}}
     <ul>
         {{#each toughts}}
-            <li>
-                <span class="label">{{this.title}}</span>
-                <span class="actions">
-                    <a href="/toughts/edit/{{this.id}}" class="btn">Editar</a>
-                    <form action="/toughts/remove" method="post">
-                        <input type="hidden" name="id" value="{{this.id}}">
-                        <input type="submit" value="Excluir" class="btn">
-                    </form>
-                </span>
-            </li>
+        <li>
+            <span class="label">{{title}} (Criado em: {{formatDate createdAt}})</span>
+
+            <div class="actions">
+                <a href="/toughts/edit/{{id}}" class="btn">Editar</a>
+                <form action="/toughts/remove" method="POST">
+                    <input type="hidden" name="id" value="{{id}}">
+                    <input type="submit" value="Excluir" class="btn">
+                </form>
+            </div>
+        </li>
         {{/each}}
     </ul>
-
-    {{#if emptyToughts}}
-        <p>Ainda não há nenhum pensamento seu, comece a crirar <a href="/toughts/add">por aqui!</a></p>
-
     {{/if}}
+
+    {{#pagination
+    totalPages=totalPages
+    currentPage=currentPage
+    }}
+    {{#if pages}}
+    <div class="pagination-container">
+        {{#if prevUrl}}
+        <a href="{{prevUrl}}" class="page-link page-arrow">&laquo;</a>
+        {{else}}
+        <span class="page-link page-arrow disabled">&laquo;</span>
+        {{/if}}
+        {{#each pages}}
+        {{#if isEllipsis}}
+        <span class="page-link ellipsis">{{page}}</span>
+        {{else}}
+        <a href="{{url}}" class="page-link page-number {{#if isCurrent}}active{{/if}}">
+            {{page}}
+        </a>
+        {{/if}}
+        {{/each}}
+        {{#if nextUrl}}
+        <a href="{{nextUrl}}" class="page-link page-arrow">&raquo;</a>
+        {{else}}
+        <span class="page-link page-arrow disabled">&raquo;</span>
+        {{/if}}
+    </div>
+    {{/if}}
+    {{/pagination}}
 </div>
