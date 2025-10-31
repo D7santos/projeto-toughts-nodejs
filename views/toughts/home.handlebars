@@ -1,0 +1,96 @@
+<div class="home-header">
+    {{#if search}}
+    <h1>Você está buscando por: <span>{{search}}</span></h1>
+    {{#if toughtsQty}}
+    <p>Foram encontrados <span>{{toughtsQty}}</span> pensamentos</p>
+    {{else}}
+    <p>Nenhum pensamento foi encontrado para o termo <span>{{search}}</span></p>
+    {{/if}}
+
+    {{else}}
+    <h1>Conheça alguns dos nossos <span>pensamentos</span></h1>
+
+    {{/if}}
+
+
+    <form action="/" method="get">
+        <input type="text" name="search" placeholder="Está buscando por algo?">
+        <input type="submit" class="btn" value="Buscar">
+    </form>
+
+    <div class="order-container">
+        <span>Ordernar por:</span>
+        <form action="/" method="get">
+            <input type="hidden" name="search" value="{{this.search}}">
+            <input type="hidden" name="order" value="new">
+            <button type="submit"><i class="bi bi-arrow-up"></i></button>
+        </form>
+
+        <form action="/" method="get">
+            <input type="hidden" name="search" value="{{this.search }}">
+            <input type="hidden" name="order" value="old">
+            <button type="submit"><i class="bi bi-arrow-down"></i></button>
+        </form>
+
+        <a href="/">Limpar</a>
+    </div>
+</div>
+
+<div class="toughts-container">
+    {{#each toughts}}
+    <figure>
+        <blockquote>
+            "{{this.title}}"
+        </blockquote>
+        <figcaption>por <span>{{this.User.name}}</span></figcaption>
+    </figure>
+    {{/each}}
+</div>
+
+{{! --- INÍCIO DOS LINKS DE PAGINAÇÃO (VERSÃO LIMPA) --- }}
+{{#pagination
+totalPages=totalPages
+currentPage=currentPage
+search=search
+currentOrder=currentOrder
+}}
+
+{{! 2. O código aqui dentro só é renderizado se houverem páginas }}
+{{#if pages}}
+<div class="pagination-container">
+
+    {{! 3. Seta "Anterior" }}
+    {{! O helper 'pagination' nos dá a variável 'prevUrl' }}
+    {{#if prevUrl}}
+    <a href="{{prevUrl}}" class="page-link page-arrow-prev">&laquo;</a>
+    {{else}}
+    {{! Mostra a seta desabilitada se não houver 'prevUrl' }}
+    <span class="page-link page-arrow disabled">&laquo;</span>
+    {{/if}}
+
+    {{! 4. Itera sobre a lista de páginas [1, '...', 5, 6, 7, '...', 10] }}
+    {{#each pages}}
+    {{#if isEllipsis}}
+    {{! Mostra "..." }}
+    <span class="page-link ellipsis">{{page}}</span>
+    {{else}}
+    {{! Mostra o número da página (o "quadrado") }}
+    <a href="{{url}}" class="page-link page-number {{#if isCurrent}}active{{/if}}">
+        {{page}}
+    </a>
+    {{/if}}
+    {{/each}}
+
+    {{! 5. Seta "Próximo" }}
+    {{! O helper 'pagination' nos dá a variável 'nextUrl' }}
+    {{#if nextUrl}}
+    <a href="{{nextUrl}}" class="page-link page-arrow-next">&raquo;</a>
+    {{else}}
+    {{! Mostra a seta desabilitada }}
+    <span class="page-link page-arrow disabled">&raquo;</span>
+    {{/if}}
+
+</div>
+{{/if}}
+{{/pagination}}
+{{! --- FIM DOS LINKS DE PAGINAÇÃO --- }}

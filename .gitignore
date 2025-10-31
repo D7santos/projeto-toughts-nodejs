@@ -1,0 +1,8 @@
+# Ignora o ficheiro com as senhas
+.env
+
+# Ignora as dependências
+/node_modules
+
+# Ignora ficheiros de sessão
+sessions/
