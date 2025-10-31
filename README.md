@@ -1,10 +1,10 @@
-# ✒️ Toughts (Pensamentos)
+#  Toughts (Pensamentos)
 
 Toughts é uma aplicação web completa (full-stack) estilo "blog" ou "rede social", onde utilizadores podem criar contas, publicar os seus pensamentos e ver os pensamentos de outros utilizadores. O projeto foi construído com Node.js, Express, Handlebars e MySQL com Sequelize.
 
 Este projeto demonstra uma arquitetura MVC (Model-View-Controller) limpa, autenticação de utilizadores baseada em sessão, operações CRUD seguras e um sistema de paginação avançado na página inicial.
 
-## ✨ Funcionalidades Principais
+##  Funcionalidades Principais
 
 * **Autenticação de Utilizador:** Registo e Login com senhas encriptadas (bcrypt).
 * **Gestão de Sessão:** Utiliza `express-session` para manter os utilizadores logados.
@@ -22,7 +22,7 @@ Este projeto demonstra uma arquitetura MVC (Model-View-Controller) limpa, autent
     * `helpers/` para a lógica complexa dos templates (ex: paginação).
     * `middleware/` para a verificação de autenticação.
 
-## 💻 Stack de Tecnologia
+##  Stack de Tecnologia
 
 * **Backend:** Node.js, Express
 * **Banco de Dados:** MySQL
@@ -33,7 +33,7 @@ Este projeto demonstra uma arquitetura MVC (Model-View-Controller) limpa, autent
 * **Mensagens Flash:** express-flash
 * **Segurança (Variáveis de Ambiente):** dotenv
 
-## 🚀 Como Executar o Projeto Localmente
+##  Como Executar o Projeto Localmente
 
 Siga estes passos para configurar e executar o projeto na sua máquina.
 
@@ -49,7 +49,7 @@ Siga estes passos para configurar e executar o projeto na sua máquina.
 git clone [URL_DO_SEU_REPOSITÓRIO_GITHUB]
 cd [NOME_DA_PASTA_DO_PROJETO]
 
-## 🎓 Agradecimentos (Acknowledgements)
+##  Agradecimentos (Acknowledgements)
 
 A estrutura base e os conceitos fundamentais deste projeto (arquitetura MVC, configuração do Sequelize, autenticação, etc.) foram desenvolvidos seguindo as excelentes aulas do instrutor **Matheus Battisti** na plataforma **Udemy**.
 
