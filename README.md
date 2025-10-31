@@ -48,3 +48,15 @@ Siga estes passos para configurar e executar o projeto na sua máquina.
 ```bash
 git clone [URL_DO_SEU_REPOSITÓRIO_GITHUB]
 cd [NOME_DA_PASTA_DO_PROJETO]
+
+## 🎓 Agradecimentos (Acknowledgements)
+
+A estrutura base e os conceitos fundamentais deste projeto (arquitetura MVC, configuração do Sequelize, autenticação, etc.) foram desenvolvidos seguindo as excelentes aulas do instrutor **Matheus Battisti** na plataforma **Udemy**.
+
+As seguintes funcionalidades foram implementadas, refatoradas ou expandidas por mim, indo além do material original do curso:
+
+* **Paginação Avançada:** Criação de um helper de paginação complexo (`pagination`) que suporta busca e ordenação.
+* **Segurança com `.env`:** Refatoração completa para remover todas as senhas e segredos do código-fonte, utilizando variáveis de ambiente.
+* **Helpers Customizados:** Implementação do `formatDate` para melhorar a UX.
+* **Documentação Profissional (JSDoc):** Documentação de todas as rotas, controllers, models e helpers no padrão JSDoc.
+* **Refatoração de Segurança:** Adição de verificações do `UserId` nas rotas de `update` e `delete` para garantir que um utilizador não possa editar *posts* de outro.
